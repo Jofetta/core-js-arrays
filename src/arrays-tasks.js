@@ -426,8 +426,13 @@ function getFalsyValuesCount(arr) {
  *                              [0,0,0,1,0],
  *                              [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  const matrix = Array.from({ length: n }, () => Array(n).fill(0));
+  function changeMatrix(index) {
+    matrix[index][index] = 1;
+  }
+  matrix.map((_, index) => changeMatrix(index));
+  return matrix;
 }
 
 /**
@@ -544,8 +549,10 @@ function propagateItemsByPositionIndex(arr) {
  *    shiftArray(['a', 'b', 'c', 'd'], -1) => ['b', 'c', 'd', 'a']
  *    shiftArray([10, 20, 30, 40, 50], -3) => [40, 50, 10, 20, 30]
  */
-function shiftArray(/* arr, n */) {
-  throw new Error('Not implemented');
+function shiftArray(arr, n) {
+  const onePart = arr.slice(-n);
+  const twoPart = arr.slice(0, -n);
+  return onePart.concat(twoPart);
 }
 
 /**
@@ -584,8 +591,18 @@ function sortDigitNamesByNumericOrder(/* arr */) {
  *   swapHeadAndTail([]) => []
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  let mid;
+  let tail;
+  const midIndex = Math.floor(arr.length / 2);
+  const head = arr.slice(0, midIndex);
+  if (arr.length % 2 !== 0) {
+    mid = arr[midIndex];
+    tail = arr.slice(midIndex + 1);
+    return tail.concat(mid, head);
+  }
+  tail = arr.slice(midIndex);
+  return tail.concat(head);
 }
 
 module.exports = {
